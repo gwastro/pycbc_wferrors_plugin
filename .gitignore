@@ -1,0 +1,5 @@
+.eggs/*
+build/*
+__pycache__
+pycbc_wferrors.egg-info
+_pycbc_wferrors_version.py
