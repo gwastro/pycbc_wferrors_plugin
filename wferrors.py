@@ -5,13 +5,16 @@ from pycbc import waveform
 from scipy.interpolate import CubicSpline
 
 def amplitude_phase_modification_fd(**kwds):
+    if kwds['error_in_phase'] not in ['relative', 'absolute']:
+        raise ValueError(
+            'Only two types of errors are supported, `\'relative\' and `\'absolute\'`.'
+        )
 
     # Baseline WF parameters
     baseline_wf_params = kwds.copy()
     baseline_wf_params['approximant']=kwds['baseline_approximant']
-    #print(baseline_wf_params)
     hp, hc = waveform.get_fd_waveform(baseline_wf_params)
-    dict_waveform_modification = kwds.copy()
+    dict_waveform_modification = kwds#.copy()  # TODO: can't we avoid these operations?
     if dict_waveform_modification['modification_type']=='cubic_spline':
         wf_nodal_points = dict_waveform_modification['nodal_points']
         delta_amplitude_arr = dict_waveform_modification['delta_amplitude']
