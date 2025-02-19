@@ -5,6 +5,30 @@ from scipy.interpolate import CubicSpline
 
 
 def amplitude_phase_modification_fd(**kwds):
+    """
+    This function applies the Amplitude-Phase modification, described in
+    Kumar, Melching, Ohme (2025), to the base waveform approximant in 
+    frequency domain.
+
+    Input in kwds:
+     error_in_phase: 'relative' or 'absolute'
+                    This argument specify the type of errors to be
+                    applied.
+     baseline_approximant: FD approximant of the reference waveform model to 
+                    modified.
+     modification_type: 'cubic_spline', 'cubic_spline_nodes', or 'constant_shift'
+                    'cubic_spline': If this option is passed, the dictionary should 
+                        includes array of delta_amplitude, delta_phase, and nodal_points
+                    'cubic_spline_nodes': When we specify this modification_type, the lower
+                        and upper limits of the frequency should be given along with number
+                        of nodal points to use.
+                    'constant_shift': This option is for the simplest case where there is no
+                        frequency dependence of the parameters delta_amplitue and delta_phase.
+                        We apply same delta_amplitude and delta_phase for all the frequencies.
+
+    Output:
+     h_plus, h_cross
+    """
     if kwds['error_in_phase'] not in ['relative', 'absolute']:
         raise ValueError(
             'Only two types of errors are supported, `\'relative\' and `\'absolute\'`.'
