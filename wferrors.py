@@ -38,7 +38,7 @@ def amplitude_phase_modification_fd(**kwds):
     baseline_wf_params = kwds.copy()
     baseline_wf_params['approximant'] = kwds['baseline_approximant']
     hp, hc = waveform.get_fd_waveform(baseline_wf_params)
-    dict_waveform_modification = kwds#.copy()  # TODO: can't we avoid these operations?
+    dict_waveform_modification = kwds
 
     if dict_waveform_modification['modification_type'] == 'cubic_spline':
         wf_nodal_points = dict_waveform_modification['nodal_points']
