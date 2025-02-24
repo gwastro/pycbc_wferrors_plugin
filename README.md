@@ -12,11 +12,11 @@ in [PyCBC Tutorials repository](https://github.com/gwastro/PyCBC-Tutorials/tree/
 
 It can be installed by running either one of
 ```bash
-pip install git+https://github.com/gwastro/example-waveform-plugin.git
+pip install git+https://github.com/gwastro/pycbc_wferrors_plugin.git
 ```
 or, using an SSH key pair,
 ```bash
-pip install git+ssh://git@github.com/gwastro/example-waveform-plugin.git
+pip install git+ssh://git@github.com/gwastro/pycbc_wferrors_plugin.git
 ```
 Alternatively, clone this repository, navigate to the corresponding folder and run
 ```bash
