@@ -7,7 +7,7 @@ Another folder [config_files](examples/config_files) contains the example config
 files for the PE runs with PyCBC Inference. 
 
 ## Installation
-To see example of PyCBC waveform plugin, you can refer to [PyCBC Inference Tutorial](tutorial/inference_9_AddingCustomModels.ipynb)
+To see example of PyCBC waveform plugin, you can refer to [PyCBC Inference #9](https://github.com/gwastro/PyCBC-Tutorials/blob/master/tutorial/inference_9_AddingCustomModels.ipynb)
 in [PyCBC Tutorials repository](https://github.com/gwastro/PyCBC-Tutorials/tree/master).
 
 It can be installed by running either one of
