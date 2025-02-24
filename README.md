@@ -10,7 +10,7 @@ files for the PE runs with PyCBC Inference.
 To see example of PyCBC waveform plugin, you can refer to [PyCBC Inference #9](https://github.com/gwastro/PyCBC-Tutorials/blob/master/tutorial/inference_9_AddingCustomModels.ipynb)
 in [PyCBC Tutorials repository](https://github.com/gwastro/PyCBC-Tutorials/tree/master).
 
-It can be installed by running either one of
+The WF-Error plugin can be installed by running either one of
 ```bash
 pip install git+https://github.com/gwastro/pycbc_wferrors_plugin.git
 ```
