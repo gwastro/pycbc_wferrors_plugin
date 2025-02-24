@@ -2,8 +2,8 @@
 
 Plugin for PyCBC to apply systematic errors models to gravitational waveforms.
 To see how it can be used, please refer to the [examples](examples) folder. It
-contains a folder [notebooks](example/notebooks) which contains an example notebook.
-Another folder [config_files](example/config_files) contains the example configuration 
+contains a folder [notebooks](examples/notebooks) which contains an example notebook.
+Another folder [config_files](examples/config_files) contains the example configuration 
 files for the PE runs with PyCBC Inference. 
 
 ## Installation
