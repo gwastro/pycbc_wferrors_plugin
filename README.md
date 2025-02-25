@@ -5,7 +5,7 @@ This plugin can be used with any waveform model which can be called with
 [pycbc-waveform](https://pycbc.org/pycbc/latest/html/waveform.html) 
 module. There are two waveform error parametrizations: one uses absolute errors in 
 phase, while the other uses relative errors in phase. Both parametrization uses relative errors
-in Amplitude. The description of these parametrizations can be found in the companion paper.
+in Amplitude. The description of these parametrizations can be found in the companion paper: [arXiv:2502.17400](https://arxiv.org/abs/2502.17400)
 
 
 To see how it can be used, please refer to the [examples](examples) folder. It
