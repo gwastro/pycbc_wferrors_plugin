@@ -1,6 +1,13 @@
 # pycbc_wferrors_plugin
 
-Plugin for PyCBC to apply systematic errors models to gravitational waveforms.
+Plugin for PyCBC to incorporate systematic errors in gravitational waveforms models.
+This plugin can be used with any waveform model which can be called with 
+[pycbc-waveform](https://pycbc.org/pycbc/latest/html/waveform.html) 
+module. There are two waveform error parametrizations: one uses absolute errors in 
+phase, while the other uses relative errors in phase. Both parametrization uses relative errors
+in Amplitude. The description of these parametrizations can be found in the companion paper.
+
+
 To see how it can be used, please refer to the [examples](examples) folder. It
 contains a folder [notebooks](examples/notebooks) which contains an example notebook.
 Another folder [config_files](examples/config_files) contains the example configuration 
