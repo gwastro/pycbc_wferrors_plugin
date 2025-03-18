@@ -3,19 +3,19 @@
 
 name: documentation
 
-# on: [push, pull_request, workflow_dispatch]
 on:
-#   push:
-#     branches:
-#       - '*'  # Adjust as needed to specify which branches to trigger on push
-#   pull_request:
-#     branches:
-#       - '*'  # Adjust as needed for which branches should trigger on PR
-  workflow_run:
-    workflows: ["installation"]
-    types:
-        - completed
-  workflow_dispatch:  # Allows manual triggering of the workflow
+  push:
+    branches:
+    #   - master  # We ran on other branches in case a pull request is made, see below
+      - '*'  # Just for this PR with testing
+  pull_request:
+    branches:
+      - '*'  # Adjust as needed for which branches should trigger on PR
+#   workflow_run:
+#     workflows: ["installation"]
+#     types:
+#         - completed
+#   workflow_dispatch:  # Allows manual triggering of the workflow
 # -- Ah, if we say it shall run upon push, then it does not wait for workflow_run
 
 permissions:
@@ -24,7 +24,7 @@ permissions:
 jobs:
   docs:
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    # if: ${{ github.event.workflow_run.conclusion == 'success' }}
     # -- Do not run if installation failed
 
     strategy:
