@@ -1,0 +1,31 @@
+name: Test Installation
+
+on:
+  push:
+    branches:
+      - master  # We ran on other branches in case a pull request is made, see below
+  pull_request:
+    branches:
+      - '*'  # Run on all branches for PRs
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        python-version: [3.8, 3.9, 3.10]  # Test against multiple Python versions
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install the package
+        run: |
+          python -m pip install --upgrade pip
+          pip install .
