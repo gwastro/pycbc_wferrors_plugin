@@ -12,3 +12,9 @@ pycbc_wferrors_plugin documentation
    :caption: Contents:
 
    Getting Started <introduction>
+
+.. nbgallery::
+   :titlesonly:
+   :caption: Tutorials
+
+   tutorials/example_usage
