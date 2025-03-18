@@ -1,9 +1,21 @@
 # -- The contents of this file are largely taken from
 # -- https://coderefinery.github.io/documentation/gh_workflow/
 
-name: documentation
+name: Documentation
 
-on: [push, pull_request, workflow_dispatch]
+# on: [push, pull_request, workflow_dispatch]
+on:
+    push:
+      branches:
+        - '*'  # Adjust as needed to specify which branches to trigger on push
+    pull_request:
+      branches:
+        - '*'  # Adjust as needed for which branches should trigger on PR
+    workflow_dispatch:  # Allows manual triggering of the workflow
+    workflow_run:
+      workflows: ["Test Installation"]
+      types:
+        - completed
 
 permissions:
   contents: write
