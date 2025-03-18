@@ -14,9 +14,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
-      - name: Install dependencies
+      - name: Install pandoc
         run: |
-          apt-get update && apt-get install -y git pandoc &&
+          sudo apt-get update && sudo apt-get install -y git pandoc
+      - name: Install Python dependencies
+        run: |
           pip install sphinx sphinx_rtd_theme m2r2 'docutils>=0.18.1,<0.21' nbsphinx nbsphinx_link lxml_html_clean
         # -- This is everything under "dev" option in setup
       - name: Sphinx build
