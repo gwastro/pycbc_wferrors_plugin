@@ -5,17 +5,18 @@ name: Documentation
 
 # on: [push, pull_request, workflow_dispatch]
 on:
-    push:
-      branches:
-        - '*'  # Adjust as needed to specify which branches to trigger on push
-    pull_request:
-      branches:
-        - '*'  # Adjust as needed for which branches should trigger on PR
+    # push:
+    #   branches:
+    #     - '*'  # Adjust as needed to specify which branches to trigger on push
+    # pull_request:
+    #   branches:
+    #     - '*'  # Adjust as needed for which branches should trigger on PR
     workflow_dispatch:  # Allows manual triggering of the workflow
     workflow_run:
       workflows: ["Test Installation"]
       types:
         - completed
+# -- Ah, if we say it shall run upon push, then it does not wait for workflow_run
 
 permissions:
   contents: write
