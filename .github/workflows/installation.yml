@@ -1,12 +1,13 @@
 name: Test Installation
 
-on:
-  push:
-    branches:
-      - master  # We ran on other branches in case a pull request is made, see below
-  pull_request:
-    branches:
-      - '*'  # Run on all branches for PRs
+# on:
+#   push:
+#     branches:
+#       - master  # We ran on other branches in case a pull request is made, see below
+#   pull_request:
+#     branches:
+#       - '*'  # Run on all branches for PRs
+on: [push, pull_request, workflow_dispatch]
 
 jobs:
   test:
@@ -14,7 +15,7 @@ jobs:
 
     strategy:
       matrix:
-        python-version: [3.8, 3.9, 3.10]  # Test against multiple Python versions
+        python-version: ['3.8', '3.9', '3.10']  # Test against multiple Python versions
 
     steps:
       - name: Check out code
