@@ -45,4 +45,18 @@ setup(
         'Topic :: Scientific/Engineering :: Physics',
         'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
     ],
+    extras_require={
+        "dev": [
+            # -- Documentation
+            "sphinx",
+            "sphinx-rtd-theme",
+            "m2r2",  # Advantage: nbsphinx wants same mistune version
+            'docutils>=0.18.1,<0.21',  # Prevent bug in m2r2
+            # "sphinx_mdinclude",  # Either this or m2r2, not both. have different compatibility
+            "nbsphinx",
+            "nbsphinx-link",
+            "lxml_html_clean"  # Needed by nbsphinx
+        ],
+
+    }
 )
