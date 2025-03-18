@@ -1,18 +1,18 @@
 # -- The contents of this file are largely taken from
 # -- https://coderefinery.github.io/documentation/gh_workflow/
 
-name: "Documentation"
+name: documentation
 
 # on: [push, pull_request, workflow_dispatch]
 on:
-  # push:
-  #   branches:
-  #     - '*'  # Adjust as needed to specify which branches to trigger on push
-  # pull_request:
-  #   branches:
-  #     - '*'  # Adjust as needed for which branches should trigger on PR
+  push:
+    branches:
+      - '*'  # Adjust as needed to specify which branches to trigger on push
+  pull_request:
+    branches:
+      - '*'  # Adjust as needed for which branches should trigger on PR
   workflow_run:
-    workflows: ["Test Installation"]
+    workflows: ["installation"]
     types:
         - completed
   workflow_dispatch:  # Allows manual triggering of the workflow
@@ -24,6 +24,8 @@ permissions:
 jobs:
   docs:
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    # -- Do not run if installation failed
 
     strategy:
         matrix:
