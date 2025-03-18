@@ -1,7 +1,7 @@
 # -- The contents of this file are largely taken from
 # -- https://coderefinery.github.io/documentation/gh_workflow/
 
-name: Documentation
+name: "Documentation"
 
 # on: [push, pull_request, workflow_dispatch]
 on:
