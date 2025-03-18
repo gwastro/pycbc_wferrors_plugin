@@ -13,10 +13,11 @@ jobs:
       - uses: actions/setup-python@v5
       - name: Install dependencies
         run: |
-          pip install sphinx sphinx_rtd_theme m2r2 docutils>=0.18.1,<0.21 nbsphinx nbsphinx_link lxml_html_clean
+          pip install sphinx sphinx_rtd_theme m2r2 docutils nbsphinx nbsphinx_link lxml_html_clean
       - name: Sphinx build
         run: |
           sphinx-build doc _build
+        #   make html
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         # if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
