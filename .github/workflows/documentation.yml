@@ -1,0 +1,58 @@
+# -- The contents of this file are largely taken from
+# -- https://coderefinery.github.io/documentation/gh_workflow/
+
+name: documentation
+
+on:
+  push:
+    branches:
+    #   - master  # We ran on other branches in case a pull request is made, see below
+      - '*'  # Just for this PR with testing
+  pull_request:
+    branches:
+      - '*'  # Adjust as needed for which branches should trigger on PR
+#   workflow_run:
+#     workflows: ["installation"]
+#     types:
+#         - completed
+#   workflow_dispatch:  # Allows manual triggering of the workflow
+# -- Ah, if we say it shall run upon push, then it does not wait for workflow_run
+
+permissions:
+  contents: write
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    # if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    # -- Do not run if installation failed
+
+    strategy:
+        matrix:
+          python-version: ['3.8', '3.9', '3.10']  # Test against multiple Python versions
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install pandoc
+        run: |
+          sudo apt-get update && sudo apt-get install -y git pandoc
+      - name: Install Python dependencies
+        run: |
+          pip install sphinx sphinx_rtd_theme m2r2 'docutils>=0.18.1,<0.21' nbsphinx nbsphinx_link lxml_html_clean
+        # -- This is everything under "dev" option in setup
+      - name: Sphinx build
+        run: |
+          sphinx-build docs _build
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        if: ${{ matrix.python-version == '3.10' && github.event_name == 'push'}}
+        # if: ${{ matrix.python-version == '3.10' && github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+        # TODO: put this back before merge
+        with:
+          publish_branch: gh-pages
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: _build/
+          force_orphan: true  # Avoid preserving commit history in target branch

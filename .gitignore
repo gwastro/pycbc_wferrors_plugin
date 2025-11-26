@@ -1,5 +1,9 @@
+# -- Builds etc.
 .eggs/*
 build/*
 __pycache__
 pycbc_wferrors.egg-info
 _pycbc_wferrors_version.py
+
+# -- Documentation
+docs/_build/
