@@ -10,7 +10,7 @@ version_config = {
     'version_file': '_pycbc_wferrors_version.py',
     'version_scheme': 'no-guess-dev',
     'local_scheme': 'dirty-tag',
-    'fallback_version': 'unknown'
+    'fallback_version': '0.1.0'
 }
 
 
@@ -34,10 +34,6 @@ setup(
                     "wferrors_2p = wferrors:amplitude_phase_modification_both_polarization_fd"]},
     classifiers = [
         'Programming Language :: Python',
-        'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.8',
-        'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
         'Programming Language :: Python :: 3.11',
         'Programming Language :: Python :: 3.12',
