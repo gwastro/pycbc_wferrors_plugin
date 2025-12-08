@@ -303,7 +303,7 @@ def amplitude_phase_modification_both_polarization_fd(**kwds):
             ) + delta_phase_cross_interp(hc.sample_frequencies)
 
     else:
-        raise TypeError("Currently: only two types of modification are supported")
+        raise TypeError("Currently, no other modification are supported")
 
     # Apply the correction to the base model
     hp.data = numpy.vectorize(complex)(Am_plus * numpy.cos(Ph_plus),
