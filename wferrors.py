@@ -97,12 +97,9 @@ def amplitude_phase_modification_fd(**kwds):
                 + delta_phase
             )
     elif dict_waveform_modification['modification_type'] == 'cubic_spline_nodes':
-        f_lower = (
-        dict_waveform_modification['f_lower_wferror']
-        if 'f_lower_wferror' in dict_waveform_modification
-        else dict_waveform_modification['f_lower']
-        )
-        #f_lower = dict_waveform_modification['f_lower']
+        f_lower = (dict_waveform_modification.get('f_lower_wferror',
+            default=dict_waveform_modification['f_lower']
+            )
         f_high_wferror = dict_waveform_modification['f_high_wferror']
         n_nodes_wferror = int(dict_waveform_modification['n_nodes_wferror'])
         wf_nodal_points = numpy.logspace(
@@ -149,7 +146,7 @@ def amplitude_phase_modification_fd(**kwds):
             ) + delta_phase_interp(hc.sample_frequencies)
 
     else:
-        raise TypeError("Currently: only two types of modification are supported")
+        raise TypeError("Currently, No other modification are supported")
 
     # Applying the correction in base model.
     hp.data = numpy.vectorize(complex)(
@@ -244,11 +241,9 @@ def amplitude_phase_modification_both_polarization_fd(**kwds):
             ) + delta_phase_cross
 
     elif modification_type == 'cubic_spline_nodes':
-        f_lower = (
-            dict_waveform_modification['f_lower_wferror']
-            if 'f_lower_wferror' in dict_waveform_modification
-            else dict_waveform_modification['f_lower']
-        )
+        f_lower = (dict_waveform_modification.get('f_lower_wferror', 
+            default=dict_waveform_modification['f_lower']
+            )
         f_high_wferror = dict_waveform_modification['f_high_wferror']
         n_nodes_wferror = int(dict_waveform_modification['n_nodes_wferror'])
 
