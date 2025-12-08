@@ -97,7 +97,9 @@ def amplitude_phase_modification_fd(**kwds):
                 + delta_phase
             )
     elif dict_waveform_modification['modification_type'] == 'cubic_spline_nodes':
-        f_lower = dict_waveform_modification['f_lower']
+        f_lower = (dict_waveform_modification.get('f_lower_wferror',
+            default=dict_waveform_modification['f_lower']
+            )
         f_high_wferror = dict_waveform_modification['f_high_wferror']
         n_nodes_wferror = int(dict_waveform_modification['n_nodes_wferror'])
         wf_nodal_points = numpy.logspace(
@@ -144,7 +146,7 @@ def amplitude_phase_modification_fd(**kwds):
             ) + delta_phase_interp(hc.sample_frequencies)
 
     else:
-        raise TypeError("Currently: only two types of modification are supported")
+        raise TypeError("Currently, No other modification are supported")
 
     # Applying the correction in base model.
     hp.data = numpy.vectorize(complex)(
@@ -155,3 +157,159 @@ def amplitude_phase_modification_fd(**kwds):
     )
 
     return hp, hc
+
+def amplitude_phase_modification_both_polarization_fd(**kwds):
+    """Modify amplitude and phase of waveform polarizations in frequency domain."""
+
+    # Baseline waveform parameters
+    baseline_wf_params = kwds.copy()
+    baseline_wf_params['approximant'] = kwds['baseline_approximant']
+
+    hp, hc = waveform.get_fd_waveform(baseline_wf_params)
+
+    dict_waveform_modification = kwds.copy()
+    modification_type = dict_waveform_modification['modification_type']
+
+    if modification_type == 'cubic_spline':
+        wf_nodal_points = dict_waveform_modification['nodal_points']
+
+        delta_amplitude_plus_arr = dict_waveform_modification['delta_amplitude_plus']
+        delta_phase_plus_arr = dict_waveform_modification['delta_phase_plus']
+        delta_amplitude_plus_interp = CubicSpline(
+            wf_nodal_points, delta_amplitude_plus_arr
+        )
+        delta_phase_plus_interp = CubicSpline(
+            wf_nodal_points, delta_phase_plus_arr
+        )
+
+        delta_amplitude_cross_arr = dict_waveform_modification['delta_amplitude_cross']
+        delta_phase_cross_arr = dict_waveform_modification['delta_phase_cross']
+        delta_amplitude_cross_interp = CubicSpline(
+            wf_nodal_points, delta_amplitude_cross_arr
+        )
+        delta_phase_cross_interp = CubicSpline(
+            wf_nodal_points, delta_phase_cross_arr
+        )
+
+        # Modify amplitude and phase for Plus and Cross polarization
+        Am_plus = waveform.amplitude_from_frequencyseries(hp) * (
+            1 + delta_amplitude_plus_interp(hp.sample_frequencies)
+        )
+        Am_cross = waveform.amplitude_from_frequencyseries(hc) * (
+            1 + delta_amplitude_cross_interp(hc.sample_frequencies)
+        )
+
+        if dict_waveform_modification['error_in_phase'] == 'relative':
+            Ph_plus = waveform.phase_from_frequencyseries(
+                hp, remove_start_phase=False
+            ) * (1 + delta_phase_plus_interp(hp.sample_frequencies))
+            Ph_cross = waveform.phase_from_frequencyseries(
+                hc, remove_start_phase=False
+            ) * (1 + delta_phase_cross_interp(hc.sample_frequencies))
+        elif dict_waveform_modification['error_in_phase'] == 'absolute':
+            Ph_plus = waveform.phase_from_frequencyseries(
+                hp, remove_start_phase=False
+            ) + delta_phase_plus_interp(hp.sample_frequencies)
+            Ph_cross = waveform.phase_from_frequencyseries(
+                hc, remove_start_phase=False
+            ) + delta_phase_cross_interp(hc.sample_frequencies)
+
+    elif modification_type == 'constant_shift':
+        delta_amplitude_plus = dict_waveform_modification['delta_amplitude_plus']
+        delta_phase_plus = dict_waveform_modification['delta_phase_plus']
+
+        delta_amplitude_cross = dict_waveform_modification['delta_amplitude_cross']
+        delta_phase_cross = dict_waveform_modification['delta_phase_cross']
+
+        # Modify amplitude and phase for Plus and Cross polarization
+        Am_plus = waveform.amplitude_from_frequencyseries(hp) * (1 + delta_amplitude_plus)
+        Am_cross = waveform.amplitude_from_frequencyseries(hc) * (1 + delta_amplitude_cross)
+
+        if dict_waveform_modification['error_in_phase'] == 'relative':
+            Ph_plus = waveform.phase_from_frequencyseries(
+                hp, remove_start_phase=False
+            ) * (1 + delta_phase_plus)
+            Ph_cross = waveform.phase_from_frequencyseries(
+                hc, remove_start_phase=False
+            ) * (1 + delta_phase_cross)
+        elif dict_waveform_modification['error_in_phase'] == 'absolute':
+            Ph_plus = waveform.phase_from_frequencyseries(
+                hp, remove_start_phase=False
+            ) + delta_phase_plus
+            Ph_cross = waveform.phase_from_frequencyseries(
+                hc, remove_start_phase=False
+            ) + delta_phase_cross
+
+    elif modification_type == 'cubic_spline_nodes':
+        f_lower = (dict_waveform_modification.get('f_lower_wferror', 
+            default=dict_waveform_modification['f_lower']
+            )
+        f_high_wferror = dict_waveform_modification['f_high_wferror']
+        n_nodes_wferror = int(dict_waveform_modification['n_nodes_wferror'])
+
+        wf_nodal_points = numpy.logspace(
+            numpy.log10(f_lower), numpy.log10(f_high_wferror), n_nodes_wferror
+        )
+
+        delta_amplitude_plus_arr = numpy.hstack([
+            dict_waveform_modification[f'wferror_amplitude_plus_{i}']
+            for i in range(len(wf_nodal_points))
+        ])
+        delta_phase_plus_arr = numpy.hstack([
+            dict_waveform_modification[f'wferror_phase_plus_{i}']
+            for i in range(len(wf_nodal_points))
+        ])
+        delta_amplitude_cross_arr = numpy.hstack([
+            dict_waveform_modification[f'wferror_amplitude_cross_{i}']
+            for i in range(len(wf_nodal_points))
+        ])
+        delta_phase_cross_arr = numpy.hstack([
+            dict_waveform_modification[f'wferror_phase_cross_{i}']
+            for i in range(len(wf_nodal_points))
+        ])
+
+        delta_amplitude_plus_interp = CubicSpline(
+            wf_nodal_points, delta_amplitude_plus_arr
+        )
+        delta_phase_plus_interp = CubicSpline(wf_nodal_points, delta_phase_plus_arr)
+        delta_amplitude_cross_interp = CubicSpline(
+            wf_nodal_points, delta_amplitude_cross_arr
+        )
+        delta_phase_cross_interp = CubicSpline(
+            wf_nodal_points, delta_phase_cross_arr
+        )
+
+        # Modify amplitude and phase for Plus and Cross polarization
+        Am_plus = waveform.amplitude_from_frequencyseries(hp) * (
+            1 + delta_amplitude_plus_interp(hp.sample_frequencies)
+        )
+        Am_cross = waveform.amplitude_from_frequencyseries(hc) * (
+            1 + delta_amplitude_cross_interp(hc.sample_frequencies)
+        )
+
+        if dict_waveform_modification['error_in_phase'] == 'relative':
+            Ph_plus = waveform.phase_from_frequencyseries(
+                hp, remove_start_phase=False
+            ) * (1 + delta_phase_plus_interp(hp.sample_frequencies))
+            Ph_cross = waveform.phase_from_frequencyseries(
+                hc, remove_start_phase=False
+            ) * (1 + delta_phase_cross_interp(hc.sample_frequencies))
+        elif dict_waveform_modification['error_in_phase'] == 'absolute':
+            Ph_plus = waveform.phase_from_frequencyseries(
+                hp, remove_start_phase=False
+            ) + delta_phase_plus_interp(hp.sample_frequencies)
+            Ph_cross = waveform.phase_from_frequencyseries(
+                hc, remove_start_phase=False
+            ) + delta_phase_cross_interp(hc.sample_frequencies)
+
+    else:
+        raise TypeError("Currently, no other modification are supported")
+
+    # Apply the correction to the base model
+    hp.data = numpy.vectorize(complex)(Am_plus * numpy.cos(Ph_plus),
+                                       Am_plus * numpy.sin(Ph_plus))
+    hc.data = numpy.vectorize(complex)(Am_cross * numpy.cos(Ph_cross),
+                                       Am_cross * numpy.sin(Ph_cross))
+
+    return hp, hc
+
