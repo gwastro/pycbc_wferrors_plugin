@@ -98,7 +98,7 @@ def amplitude_phase_modification_fd(**kwds):
             )
     elif dict_waveform_modification['modification_type'] == 'cubic_spline_nodes':
         f_lower = (dict_waveform_modification.get('f_lower_wferror',
-            default=dict_waveform_modification['f_lower']
+            default=dict_waveform_modification['f_lower'])
             )
         f_high_wferror = dict_waveform_modification['f_high_wferror']
         n_nodes_wferror = int(dict_waveform_modification['n_nodes_wferror'])
@@ -242,7 +242,7 @@ def amplitude_phase_modification_both_polarization_fd(**kwds):
 
     elif modification_type == 'cubic_spline_nodes':
         f_lower = (dict_waveform_modification.get('f_lower_wferror', 
-            default=dict_waveform_modification['f_lower']
+            default=dict_waveform_modification['f_lower'])
             )
         f_high_wferror = dict_waveform_modification['f_high_wferror']
         n_nodes_wferror = int(dict_waveform_modification['n_nodes_wferror'])
