@@ -1,0 +1,579 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Frequency Domain Output &mdash; pycbc_wferrors_plugin  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="pycbc_wferrors_plugin" href="../introduction.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pycbc_wferrors_plugin
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../introduction.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction.html#code-plans">Code Plans</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Frequency Domain Output</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pycbc_wferrors_plugin</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Frequency Domain Output</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/tutorials/example_usage.nblink.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import numpy as np
+import matplotlib.pyplot as plt
+
+from pycbc.waveform import get_fd_waveform
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/home/user/miniconda3/envs/test_install/lib/python3.11/site-packages/pycbc/types/array.py:36: UserWarning: Wswiglal-redir-stdio:
+
+SWIGLAL standard output/error redirection is enabled in IPython.
+This may lead to performance penalties. To disable locally, use:
+
+with lal.no_swig_redirect_standard_output_error():
+    ...
+
+To disable globally, use:
+
+lal.swig_redirect_standard_output_error(True)
+
+Note however that this will likely lead to error messages from
+LAL functions being either misdirected or lost when called from
+Jupyter notebooks.
+
+To suppress this warning, use:
+
+import warnings
+warnings.filterwarnings(&#34;ignore&#34;, &#34;Wswiglal-redir-stdio&#34;)
+import lal
+
+  import lal as _lal
+PyCBC.libutils: pkg-config call failed, setting NO_PKGCONFIG=1
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>try:
+    plt.style.use(&#39;plot_stylesheet.sty&#39;)
+except Exception:
+    pass
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>wf_params = {
+    &#39;mass1&#39;: 30,
+    &#39;mass2&#39;: 20,
+    &#39;f_lower&#39;: 20,
+    &#39;f_final&#39;: 1024,
+    &#39;delta_f&#39;: 1/64,
+    &#39;delta_t&#39;: 1/2048,
+    &#39;spin1z&#39;: 0,
+    &#39;spin2z&#39;: 0,
+    &#39;distance&#39;: 100,
+    &#39;inclination&#39;: 0.2,
+}
+</pre></div>
+</div>
+</div>
+<section id="Frequency-Domain-Output">
+<h1>Frequency Domain Output<a class="headerlink" href="#Frequency-Domain-Output" title="Link to this heading"></a></h1>
+<section id="No-Modification">
+<h2>No Modification<a class="headerlink" href="#No-Modification" title="Link to this heading"></a></h2>
+<p>Sanity check, should reproduce output of <code class="docutils literal notranslate"><span class="pre">get_fd_waveform</span></code></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>hpf_ref, hcf_ref = get_fd_waveform(
+    approximant=&#39;IMRPhenomPv2&#39;,
+    **wf_params,
+)
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>wf_no_mod_params = {
+    &#39;modification_type&#39;: &#39;constant_shift&#39;,
+    &#39;error_in_phase&#39;: &#39;relative&#39;,
+    &#39;delta_amplitude&#39;: 0.,
+    &#39;delta_phase&#39;: 0.,
+}
+
+hpf_no_mod, hcf_no_mod = get_fd_waveform(
+    approximant=&#39;wferrors&#39;,
+    baseline_approximant=&#39;IMRPhenomPv2&#39;,
+    **wf_params,
+    **wf_no_mod_params,
+)
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>hpf_ref.plot(label=r&#39;$h_\mathrm{ref}$&#39;)
+hpf_no_mod.plot(ls=&#39;--&#39;, label=r&#39;$h_\mathrm{no-mod}$&#39;)
+
+plt.legend()
+plt.xlabel(r&#39;$f$&#39;)
+plt.xlim(10, 256)
+
+plt.show()
+
+hcf_ref.plot(label=r&#39;$h_\mathrm{ref}$&#39;)
+hcf_no_mod.plot(ls=&#39;--&#39;, label=r&#39;$h_\mathrm{no-mod}$&#39;)
+
+plt.legend()
+plt.xlabel(r&#39;$f$&#39;)
+plt.xlim(10, 256)
+
+plt.show()
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_example_usage_8_0.png" src="../_images/tutorials_example_usage_8_0.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_example_usage_8_1.png" src="../_images/tutorials_example_usage_8_1.png" />
+</div>
+</div>
+<p>Two plots each due to real and imaginary part. All curves agree perfectly.</p>
+</section>
+<section id="Constant-Errors">
+<h2>Constant Errors<a class="headerlink" href="#Constant-Errors" title="Link to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>wf_amp_mod_params = {
+    &#39;modification_type&#39;: &#39;constant_shift&#39;,
+    &#39;error_in_phase&#39;: &#39;relative&#39;,
+    &#39;delta_amplitude&#39;: 0.1,
+    &#39;delta_phase&#39;: 0.,
+}
+
+hpf_amp_mod, hcf_amp_mod = get_fd_waveform(
+    approximant=&#39;wferrors&#39;,
+    baseline_approximant=&#39;IMRPhenomPv2&#39;,
+    **wf_params,
+    **wf_amp_mod_params,
+)
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>hpf_ref.plot(label=r&#39;$h_\mathrm{ref}$&#39;)
+hpf_amp_mod.plot(ls=&#39;--&#39;, label=r&#39;$h_\mathrm{amp-mod}$&#39;)
+
+plt.legend()
+plt.xlabel(r&#39;$f$&#39;)
+plt.xlim(10, 256)
+
+plt.show()
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_example_usage_12_0.png" src="../_images/tutorials_example_usage_12_0.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>wf_phase_mod_params = {
+    &#39;modification_type&#39;: &#39;constant_shift&#39;,
+    &#39;error_in_phase&#39;: &#39;relative&#39;,
+    &#39;delta_amplitude&#39;: 0.,
+    &#39;delta_phase&#39;: 0.1,
+}
+
+hpf_phase_mod, hcf_phase_mod = get_fd_waveform(
+    approximant=&#39;wferrors&#39;,
+    baseline_approximant=&#39;IMRPhenomPv2&#39;,
+    **wf_params,
+    **wf_phase_mod_params,
+)
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>hpf_ref.plot(label=r&#39;$h_\mathrm{ref}$&#39;)
+hpf_phase_mod.plot(ls=&#39;--&#39;, label=r&#39;$h_\mathrm{phase-mod}$&#39;)
+
+plt.legend()
+plt.xlabel(r&#39;$f$&#39;)
+plt.xlim(10, 256)
+
+plt.show()
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_example_usage_14_0.png" src="../_images/tutorials_example_usage_14_0.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>wf_mod_params = {
+    &#39;modification_type&#39;: &#39;constant_shift&#39;,
+    &#39;error_in_phase&#39;: &#39;relative&#39;,
+    &#39;delta_amplitude&#39;: 0.1,
+    &#39;delta_phase&#39;: 0.1,
+}
+
+hpf_mod, hcf_mod = get_fd_waveform(
+    approximant=&#39;wferrors&#39;,
+    baseline_approximant=&#39;IMRPhenomPv2&#39;,
+    **wf_params,
+    **wf_mod_params,
+)
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>hpf_ref.plot(label=r&#39;$h_\mathrm{ref}$&#39;)
+hpf_mod.plot(ls=&#39;--&#39;, label=r&#39;$h_\mathrm{mod}$&#39;)
+
+plt.legend()
+plt.xlabel(r&#39;$f$&#39;)
+plt.xlim(10, 256)
+
+plt.show()
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_example_usage_16_0.png" src="../_images/tutorials_example_usage_16_0.png" />
+</div>
+</div>
+</section>
+<section id="Cubic-Spline-Errors">
+<h2>Cubic Spline Errors<a class="headerlink" href="#Cubic-Spline-Errors" title="Link to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>f_low_calibration = wf_params[&#39;f_lower&#39;]
+f_high_calibration = wf_params[&#39;f_final&#39;]
+
+n_wf_nodal_points = 10
+wf_nodal_points = np.logspace(np.log10(f_low_calibration), np.log10(f_high_calibration), n_wf_nodal_points)
+
+
+ampl_mean_err = 0.1
+ampl_stddev_err = 0.05
+
+phase_mean_err = 0.1
+phase_stddev_err = 0.05
+
+np.random.seed(42)
+delta_amplitude_arr = np.random.standard_normal(n_wf_nodal_points)*ampl_stddev_err + ampl_mean_err
+delta_phase_arr = np.random.standard_normal(n_wf_nodal_points)*phase_stddev_err + phase_mean_err
+
+
+wf_mod_spline_params = {
+    &#39;modification_type&#39;: &#39;cubic_spline&#39;,
+    &#39;error_in_phase&#39;: &#39;relative&#39;,
+    &#39;delta_amplitude&#39;: delta_amplitude_arr,
+    &#39;delta_phase&#39;: delta_phase_arr,
+    &#39;nodal_points&#39;: wf_nodal_points,
+}
+
+hpf_mod_spline, hcf_mod_spline = get_fd_waveform(
+    approximant=&#39;wferrors&#39;,
+    baseline_approximant=&#39;IMRPhenomPv2&#39;,
+    **wf_params,
+    **wf_mod_spline_params,
+)
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from scipy.interpolate import CubicSpline
+
+delta_amplitude_interp = CubicSpline(wf_nodal_points, delta_amplitude_arr)
+delta_phase_interp = CubicSpline(wf_nodal_points, delta_phase_arr)
+
+plot_points = np.linspace(f_low_calibration, f_high_calibration, num=200)
+
+plt.plot(plot_points, delta_amplitude_interp(plot_points), label=&#39;Interpolating Spline&#39;)
+plt.plot(wf_nodal_points, delta_amplitude_arr, &#39;X&#39;, label=&#39;Nodal Points&#39;)
+
+plt.legend()
+plt.xlabel(r&#39;$f$&#39;)
+plt.ylabel(r&#39;$\delta \tilde{A}$&#39;)
+
+plt.show()
+
+
+plt.plot(plot_points, delta_phase_interp(plot_points), label=&#39;Interpolating Spline&#39;)
+plt.plot(wf_nodal_points, delta_phase_arr, &#39;X&#39;, label=&#39;Nodal Points&#39;)
+
+plt.legend()
+plt.xlabel(r&#39;$f$&#39;)
+plt.ylabel(r&#39;$\delta \tilde{\phi}$&#39;)
+
+plt.show()
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_example_usage_19_0.png" src="../_images/tutorials_example_usage_19_0.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_example_usage_19_1.png" src="../_images/tutorials_example_usage_19_1.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>hpf_ref.plot(label=r&#39;$h_\mathrm{ref}$&#39;)
+hpf_mod_spline.plot(ls=&#39;--&#39;, label=r&#39;$h_\mathrm{mod-spline}$&#39;)
+
+plt.legend()
+plt.xlabel(r&#39;$f$&#39;)
+plt.xlim(10, 256)
+
+plt.show()
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_example_usage_20_0.png" src="../_images/tutorials_example_usage_20_0.png" />
+</div>
+</div>
+</section>
+<section id="Detector-Strain">
+<h2>Detector Strain<a class="headerlink" href="#Detector-Strain" title="Link to this heading"></a></h2>
+<p>While calling <code class="docutils literal notranslate"><span class="pre">get_fd_det_waveform</span></code> is currently not supported, we can make use of the capability to generate the GW polarization and perform the detector projection manually.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>t_ref = 0
+
+extr_params = dict(
+    ra=1.2,
+    dec=0.6,
+    polarization=0.8,
+    t_ref=t_ref,
+)
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from pycbc.detector import Detector
+
+hanford = Detector(
+    &#39;H1&#39;,
+    reference_time=t_ref,
+)
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fp, fc = hanford.antenna_pattern(
+    right_ascension=extr_params[&#39;ra&#39;],
+    declination=extr_params[&#39;dec&#39;],
+    polarization=extr_params[&#39;polarization&#39;],
+    t_gps=hanford.reference_time,
+    # t_gps=float(t_ref),
+)
+
+hf_ref = fp*hpf_ref + fc*hcf_ref
+hf_mod_spline = fp*hpf_mod_spline + fc*hcf_mod_spline
+
+
+# from pycbc.waveform import apply_fseries_time_shift
+# hf_ref = apply_fseries_time_shift(hf_ref, dt)
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>hf_ref.plot(label=r&#39;$h_\mathrm{ref}$&#39;)
+hf_mod_spline.plot(ls=&#39;--&#39;, label=r&#39;$h_\mathrm{mod-spline}$&#39;)
+
+plt.legend()
+plt.xlabel(r&#39;$f$&#39;)
+plt.xlim(10, 256)
+
+plt.show()
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_example_usage_26_0.png" src="../_images/tutorials_example_usage_26_0.png" />
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../introduction.html" class="btn btn-neutral float-left" title="pycbc_wferrors_plugin" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, The PyCBC Team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
