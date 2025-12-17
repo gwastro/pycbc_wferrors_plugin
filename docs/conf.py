@@ -9,6 +9,7 @@
 project = 'pycbc_wferrors_plugin'
 
 import datetime
+
 year = datetime.datetime.now().year
 copyright = f'{year}, The PyCBC Team'
 # copyright = '2025, Sumit Kumar and Max Melching and Frank Ohme'
@@ -29,13 +30,12 @@ extensions = [
     'm2r2',  # including markdown files
     # 'sphinx_mdinclude',  # including markdown files -> then comment m2r2 -> seems to work much better -> but not compatible with nbsphinx...
     'nbsphinx',
-    'nbsphinx_link'
+    'nbsphinx_link',
 ]
 
 
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
-
 
 
 # -- Options for HTML output -------------------------------------------------
@@ -51,6 +51,5 @@ html_theme_options = {
     'collapse_navigation': False,  # Makes navigation expandable
     'sticky_navigation': True,
     'navigation_depth': 4,
-    'titles_only': False
+    'titles_only': False,
 }
-

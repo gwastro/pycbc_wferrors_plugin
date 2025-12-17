@@ -1,4 +1,3 @@
-
 """
 setup.py file for waveform-errors from pycbc waveform plugin package
 """
@@ -10,29 +9,33 @@ version_config = {
     'version_file': '_pycbc_wferrors_version.py',
     'version_scheme': 'no-guess-dev',
     'local_scheme': 'dirty-tag',
-    'fallback_version': '0.1.0'
+    'fallback_version': '0.1.0',
 }
 
 
 setup(
-    name = 'pycbc-wferrors',
-    use_scm_version = version_config,
-    description = 'An waveform plugin for systematic errors for PyCBC',
-    long_description = open('descr.rst').read(),
-    author = 'The PyCBC team',
-    author_email = 'sumit.kumar@aei.mpg.de',
-    url = 'http://www.pycbc.org/',
-    keywords = ['pycbc', 'signal processing', 'gravitational waves'],
-    setup_requires = [
+    name='pycbc-wferrors',
+    use_scm_version=version_config,
+    description='An waveform plugin for systematic errors for PyCBC',
+    long_description=open('descr.rst').read(),
+    author='The PyCBC team',
+    author_email='sumit.kumar@aei.mpg.de',
+    url='http://www.pycbc.org/',
+    keywords=['pycbc', 'signal processing', 'gravitational waves'],
+    setup_requires=[
         'setuptools>=64',
         'setuptools_scm>=8',
         'wheel',
     ],
-    install_requires = ['pycbc'],
-    py_modules = ['wferrors'],
-    entry_points = {"pycbc.waveform.fd":["wferrors = wferrors:amplitude_phase_modification_fd",
-                    "wferrors_2p = wferrors:amplitude_phase_modification_both_polarization_fd"]},
-    classifiers = [
+    install_requires=['pycbc'],
+    py_modules=['wferrors'],
+    entry_points={
+        "pycbc.waveform.fd": [
+            "wferrors = wferrors:amplitude_phase_modification_fd",
+            "wferrors_2p = wferrors:amplitude_phase_modification_both_polarization_fd",
+        ]
+    },
+    classifiers=[
         'Programming Language :: Python',
         'Programming Language :: Python :: 3.10',
         'Programming Language :: Python :: 3.11',
@@ -57,6 +60,5 @@ setup(
             'nbsphinx-link',
             'lxml_html_clean',  # Needed by nbsphinx
         ],
-
-    }
+    },
 )
